@@ -1,0 +1,95 @@
+---
+- name: Change vault password
+  ansible.builtin.shell:
+    set -o pipefail && echo -n "{{ rekey_variables.key }}" | ansible-vault encrypt_string "{{ rekey_variables.value }}" \
+    --vault-password-file "{{ playbook_dir }}/.{{ new_vault_file_name }}_{{ __rand_string }}"
+  register: __new_output
+  tags:
+    - "aap_vault_change"
+    - "aap_post_tasks"
+  no_log: "{{ log_var }}"
+  changed_when: __new_output.rc != 0
+  when:
+    - new_vault_password is defined
+    - vault_change
+    - rekey_variables.value
+
+- name: Check if the temporary file exists
+  ansible.builtin.stat:
+    path: "{{ __temporary_vault_directory }}/{{ __temporary_vault_file }}"
+  register: __temporary_file_output
+  tags:
+    - "aap_vault_change"
+    - "aap_post_tasks"
+
+- name: Create the temprory vault file if not exists
+  ansible.builtin.file:
+    path: "{{ __temporary_vault_directory }}/{{ __temporary_vault_file }}"
+    state: touch
+    mode: "0644"
+  when: not __temporary_file_output.stat.exists
+  tags:
+    - "aap_vault_change"
+    - "aap_post_tasks"
+
+- name: Check if the vault variable exists in the temporary vault file
+  ansible.builtin.lineinfile:
+    path: "{{ __temporary_vault_directory }}/{{ __temporary_vault_file }}"
+    regexp: "^{{ rekey_variables.key }}$"
+    line: "{{ rekey_variables.key }}: {{ __new_output }}"
+    state: present
+    backrefs: true
+    create: true
+    mode: "0644"
+  check_mode: true
+  register: file_content_output
+  loop_control:
+    label: "{{ rekey_variables.key }}"
+  when:
+    - new_vault_password is defined
+    - vault_change
+  tags:
+    - "aap_vault_change"
+    - "aap_post_tasks"
+
+- name: Set output of the variable check from the new file
+  ansible.builtin.set_fact:
+    work_output: "{{ file_content_output.msg }}"
+  when:
+    - new_vault_password is defined
+    - vault_change
+  tags:
+    - "aap_vault_change"
+    - "aap_post_tasks"
+
+- name: Add variable with new vault password to temporary file
+  ansible.builtin.lineinfile:
+    path: "{{ __temporary_vault_directory }}/{{ __temporary_vault_file }}"
+    line: "{{ rekey_variables.key }}: {{ __new_output.stdout }}"
+    state: present
+    create: true
+    mode: "0644"
+  loop_control:
+    label: "{{ rekey_variables.key }}"
+  when:
+    - not work_output
+    - rekey_variables.value | length > 0
+  tags:
+    - "aap_vault_change"
+    - "aap_post_tasks"
+
+- name: Add variable with new vault password to temporary file if value is empty
+  ansible.builtin.lineinfile:
+    path: "{{ __temporary_vault_directory }}/{{ __temporary_vault_file }}"
+    line: "{{ rekey_variables.key }}: \"\""
+    state: present
+    create: true
+    mode: "0644"
+  loop_control:
+    label: "{{ rekey_variables.key }}"
+  when:
+    - not work_output
+    - rekey_variables.value | length == 0
+  tags:
+    - "aap_vault_change"
+    - "aap_post_tasks"

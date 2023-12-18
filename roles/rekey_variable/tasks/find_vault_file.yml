@@ -1,0 +1,11 @@
+---
+- name: Find all vault_ prefix var files
+  ansible.builtin.find:
+    paths: "{{ inventory_dir | dirname }}/{{ inventory_repo_name }}"
+    patterns: "{{ vault_file_patterns }}"
+    file_type: "{{ vault_file_type }}"
+    recurse: true
+  register: __find_files
+  tags:
+    - "aap_vault_change"
+    - "aap_post_tasks"

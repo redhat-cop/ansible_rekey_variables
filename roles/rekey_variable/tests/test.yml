@@ -1,0 +1,9 @@
+- name: Change vault password for all encrypted variables in Roles
+  hosts: localhost
+  gather_facts: false
+  roles:
+    - role: ../../rekey_variable
+      when:
+        - vault_change is defined
+        - vault_change | bool
+      tags: aap_vault_change

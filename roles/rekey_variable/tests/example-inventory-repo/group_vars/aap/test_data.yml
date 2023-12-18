@@ -1,0 +1,5 @@
+---
+# Variables that not required to be encrypted. These variables will not be encrypted when running the role.
+aap_var_test_cred1: "test1"
+aap_var_test_cred2: "test2"
+aap_var_test_cred3: "test3"
