@@ -1,26 +1,26 @@
 ---
-- name: Get vault file directory
+- name: Get Vault File Directory
   ansible.builtin.set_fact:
     __temporary_vault_directory: "{{ item.path | dirname }}"
   tags:
     - "aap_vault_change"
     - "aap_post_tasks"
 
-- name: Set temporary prefix to vault file name
+- name: Set temporary prefix to vault filename
   ansible.builtin.set_fact:
     __temporary_vault_file: "temporary_{{ __rand_string }}{{ item.path | basename }}"
   tags:
     - "aap_vault_change"
     - "aap_post_tasks"
 
-- name: Set vault faile path
+- name: Set Vault File Path
   ansible.builtin.set_fact:
     __file_path: "{{ item.path }}"
   tags:
     - "aap_vault_change"
     - "aap_post_tasks"
 
-- name: Check Credential directory
+- name: Review Credential Directory
   ansible.builtin.include_vars:
     file: "{{ item.path }}"
     name: aap_data
@@ -47,7 +47,7 @@
     - "aap_vault_change"
     - "aap_post_tasks"
 
-- name: Change temproray vault file name to permanent
+- name: Change temporary vault filename to permanent
   ansible.builtin.command: mv "{{ __temporary_vault_directory }}/{{ __temporary_vault_file }}" "{{ __file_path }}"
   when: __temporary_file_output.stat.exists
   register: __mv_output

@@ -1,5 +1,5 @@
 ---
-- name: Change vault password
+- name: Change Vault Password
   ansible.builtin.shell:
     set -o pipefail && echo -n "{{ rekey_variables.key }}" | ansible-vault encrypt_string "{{ rekey_variables.value }}" \
     --vault-password-file "{{ playbook_dir }}/.{{ new_vault_file_name }}_{{ __rand_string }}"
@@ -14,7 +14,7 @@
     - vault_change
     - rekey_variables.value
 
-- name: Check if the temporary file exists
+- name: Check that the temporary file exists
   ansible.builtin.stat:
     path: "{{ __temporary_vault_directory }}/{{ __temporary_vault_file }}"
   register: __temporary_file_output
@@ -22,7 +22,7 @@
     - "aap_vault_change"
     - "aap_post_tasks"
 
-- name: Create the temprory vault file if not exists
+- name: Create the temporary vault file if it does not exist
   ansible.builtin.file:
     path: "{{ __temporary_vault_directory }}/{{ __temporary_vault_file }}"
     state: touch
@@ -32,7 +32,7 @@
     - "aap_vault_change"
     - "aap_post_tasks"
 
-- name: Check if the vault variable exists in the temporary vault file
+- name: Check to see if the vault variable exists in the temporary vault file.
   ansible.builtin.lineinfile:
     path: "{{ __temporary_vault_directory }}/{{ __temporary_vault_file }}"
     regexp: "^{{ rekey_variables.key }}$"

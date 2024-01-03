@@ -1,4 +1,4 @@
-- name: Change vault password for all encrypted variables in Roles
+- name: Change the vault password for all encrypted variables in roles
   hosts: localhost
   gather_facts: false
   roles:

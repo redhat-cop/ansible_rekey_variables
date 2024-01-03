@@ -1,5 +1,5 @@
 ---
-- name: Find all vault_ prefix var files
+- name: Find all vault_ prefix variable files
   ansible.builtin.find:
     paths: "{{ inventory_dir | dirname }}/{{ inventory_repo_name }}"
     patterns: "{{ vault_file_patterns }}"
