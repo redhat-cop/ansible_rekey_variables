@@ -1,0 +1,3 @@
+# Variables that do not need to be encrypted. These variables are not encrypted when the role is run.
+aap_var_test1: "aap_test1"
+aap_var_test2: "aap_test2"

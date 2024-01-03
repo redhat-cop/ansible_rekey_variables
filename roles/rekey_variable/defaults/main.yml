@@ -1,0 +1,27 @@
+---
+# ansible-vault encrypt_string takes a vault password file as a parameter.
+# This allows you to define a temporary file name that will keep the password while running the playbook.
+## When a temporary file is created, a random string is appended to the name of the file.
+new_vault_file_name: newvaultpassfile
+
+# This parameter should be set to **true** to be able to run Change Vault Password.
+vault_change: true
+
+# It should be set to true because the outputs can display sensible data.
+log_var: true
+
+## new_vault_password should be defined as a variable to set this new password for all encryption variables.
+# new_vault_password:
+
+## This pattern is used to find which files have vaulted variables. No need to change because all files with vaulted variables must start with vault_ prefix.
+vault_file_patterns: "vault_*.yml"
+
+# This variable is used to search for files only.
+vault_file_type: file
+
+# This variable should be defined to get a vaulted variable directory name.
+inventory_repo_name: "example-inventory-repo"
+
+## It requires a variable to be set as a variable. You can set it anywhere as an encrypted variable to make it more secure.
+## Or you can set it as an environment variable on the command line.
+new_vault_password: test

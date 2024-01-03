@@ -1,0 +1,15 @@
+---
+- name: Find all files that match patterns
+  ansible.builtin.import_tasks: find_vault_file.yml
+
+- name: Create temporary file to store password
+  ansible.builtin.import_tasks: create_vault_password_file.yml
+
+- name: Retrieve the contents of all encrypted variables and change the vault password
+  ansible.builtin.include_tasks: get_content.yml
+  loop: "{{ __find_files.files }}"
+  loop_control:
+    label: "{{ item.path }}"
+
+- name: Remove temporary file created to store password
+  ansible.builtin.import_tasks: remove_vault_password_file.yml
