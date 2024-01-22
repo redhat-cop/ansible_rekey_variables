@@ -2,16 +2,16 @@
 - name: Change Vault Password
   ansible.builtin.shell:
     set -o pipefail && echo -n "{{ rekey_variables.key }}" | ansible-vault encrypt_string "{{ rekey_variables.value }}" \
-    --vault-password-file "{{ playbook_dir }}/.{{ new_vault_file_name }}_{{ __rand_string }}"
+    --vault-password-file "{{ playbook_dir }}/.{{ rekey_variable_new_vault_file_name }}_{{ __rand_string }}"
   register: __new_output
   tags:
     - "aap_vault_change"
     - "aap_post_tasks"
-  no_log: "{{ log_var }}"
+  no_log: "{{ rekey_variable_log_var }}"
   changed_when: __new_output.rc != 0
   when:
-    - new_vault_password is defined
-    - vault_change
+    - rekey_variable_new_vault_password is defined
+    - rekey_variable_vault_change
     - rekey_variables.value
 
 - name: Check that the temporary file exists
@@ -46,8 +46,8 @@
   loop_control:
     label: "{{ rekey_variables.key }}"
   when:
-    - new_vault_password is defined
-    - vault_change
+    - rekey_variable_new_vault_password is defined
+    - rekey_variable_vault_change
   tags:
     - "aap_vault_change"
     - "aap_post_tasks"
@@ -56,8 +56,8 @@
   ansible.builtin.set_fact:
     work_output: "{{ file_content_output.msg }}"
   when:
-    - new_vault_password is defined
-    - vault_change
+    - rekey_variable_new_vault_password is defined
+    - rekey_variable_vault_change
   tags:
     - "aap_vault_change"
     - "aap_post_tasks"

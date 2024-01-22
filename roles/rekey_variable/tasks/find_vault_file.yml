@@ -1,9 +1,9 @@
 ---
 - name: Find all vault_ prefix variable files
   ansible.builtin.find:
-    paths: "{{ inventory_dir | dirname }}/{{ inventory_repo_name }}"
-    patterns: "{{ vault_file_patterns }}"
-    file_type: "{{ vault_file_type }}"
+    paths: "{{ inventory_dir | dirname }}/{{ rekey_variable_inventory_repo_name }}"
+    patterns: "{{ rekey_variable_vault_file_patterns }}"
+    file_type: "{{ rekey_variable_vault_file_type }}"
     recurse: true
   register: __find_files
   tags:

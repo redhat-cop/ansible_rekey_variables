@@ -34,7 +34,7 @@
   loop_control:
     loop_var: rekey_variables
     label: "{{ rekey_variables }}"
-  no_log: "{{ log_var }}"
+  no_log: "{{ rekey_variable_log_var }}"
   tags:
     - "aap_vault_change"
     - "aap_post_tasks"
