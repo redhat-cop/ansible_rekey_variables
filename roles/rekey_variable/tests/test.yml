@@ -6,6 +6,6 @@
       ansible.builtin.include_role:
         name: rekey_variable
       when:
-        - vault_change is defined
-        - vault_change | bool
+        - rekey_variable_vault_change is defined
+        - rekey_variable_vault_change | bool
       tags: aap_vault_change
