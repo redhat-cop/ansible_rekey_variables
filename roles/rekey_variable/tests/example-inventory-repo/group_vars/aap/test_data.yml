@@ -1,5 +1,5 @@
 ---
 # Variables that do not need to be encrypted. These variables are not encrypted when the role is run.
-aap_var_test_cred1: "test1"
-aap_var_test_cred2: "test2"
-aap_var_test_cred3: "test3"
+rekey_variable_aap_var_test_cred1: "test1"
+rekey_variable_aap_var_test_cred2: "test2"
+rekey_variable_aap_var_test_cred3: "test3"

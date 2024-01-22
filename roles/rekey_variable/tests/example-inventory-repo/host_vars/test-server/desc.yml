@@ -1,3 +1,3 @@
 ---
-host_description: created by Ansible
-host_comment: It is a test server.
+rekey_variable_host_description: created by Ansible
+rekey_variable_host_comment: It is a test server.
