@@ -1,9 +1,11 @@
-- name: Change the vault password for all encrypted variables in roles
+- name: Change vault password for all encrypted variables in Roles
   hosts: localhost
   gather_facts: false
-  roles:
-    - role: ../../rekey_variable
+  tasks:
+    - name: Replace encryption key for encrypted variables
+      ansible.builtin.include_role:
+        name: rekey_variable
       when:
-        - rekey_variable_vault_change is defined
-        - rekey_variable_vault_change | bool
+        - vault_change is defined
+        - vault_change | bool
       tags: aap_vault_change
