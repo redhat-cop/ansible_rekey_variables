@@ -1,16 +1,20 @@
-# vaulted_inventory
-A collection for managing vaulted Ansible inventories. It helps to rekey all encrypted variables in the inventory repository. Can also be used to encrypt variables from clear text.
+# Ansible Rekey Encrypted Variables
 
-## Name
-rekey_variable project for encrypted variables.
+There are options that you can encrypt the file or variables itself in Ansible vault. When the file is encrypted all variables will be part of it. Encryption variables allow you to have this encryption for each variable that has sensitive content. It is not easy to rekey all encryption variables while encrypt_string does not have this option. This collection will help you during the rotation of the vault password and re-encrypt the variables.
 
-## Description
+## Use case of ansible_rekey_variables
+
+It is a collection for managing vaulted Ansible inventories. It helps to rekey all encrypted variables in the inventory repository. Can also be used to encrypt variables from clear text. Thus, without having to encrypt each variable separately, it does this for you in the file where the variable is located.
+
+We demonstrate in this document how to run this collection locally. Don't forget, this role also can be part of a pipeline or run from Ansible Automation Platform. This pipeline / AAP template also can create the Pull Request that includes all the changes.
+
+### Information for Encrypted Variables
 
 While `ansible-vault` has a rekey option to change the vault password, `ansible-vault encrypt_string` doesn't have an option. The goal of this collection is to automate changing vault passwords for all encrypted variables under the inventory group_vars and host_vars.
 
 More details can be found in this [link](https://docs.ansible.com/ansible/latest/user_guide/vault.html#creating-encrypted-variables) on encrypted variables.
 
-## Example for encrypted variable
+### Example for encrypted variable => another section for this.
 ----
 Simply run the command below for the variable you want to encrypt, then enter the new vault password. You can use this output in your inventory to store variables as encrypted.
 
@@ -30,7 +34,16 @@ Encryption successful
 ----
 ````
 
+## Prerequisites
+
+* Ansible version 2.9+ should be available locally. Ansible-core package installation is enough.
+* Inventory repositories that hold the encrypted variables should be cloned to the local directory before performing the vault password change.
+* Git also should be available on your local command line.
+
+
 ## Installation
+
+You should install this collection on your local environment.
 
 ````bash
 
@@ -38,24 +51,33 @@ ansible-galaxy collection install vaulted_inventory-vaulted_variable-1.0.0.tar.g
 
 ````
 
-## Role Variables
+### Role Variables
 
-Role variables are defined in [defaults/main.yml](defaults/main.yml). Basically, ``new_vault_password``, ``inventory_repo_name`` should be defined to be able to change the vault password.
+Role variables are defined in [defaults/main.yml](defaults/main.yml).
 
+  * `rekey_variable_rekey_variable_vault_file_patterns`: It will search in the inventory file for this regex. You can change it if you have different file naming convention.
 
-## Dependencies
+Basically, ``new_vault_password`` and ``inventory_repo_name`` should be defined to be able to change the vault password.
 
-* Ansible should be available locally.
-* Inventory repositories that hold the encrypted variables should be cloned to the local directory before performing the vault password change.
-
-## Role Tags
+### Role Tags
 
 This role accepts the following tags to customize which part of the deployment is executed.
 
 * aap_vault_change
 * aap_post_tasks
 
-## Example Variable File
+## Inventory Repository
+
+Clone the inventory repository to your local directory.
+
+````bash
+git clone <inventory_repository>
+````
+
+### Example for Encrypted Variables in inventory repository
+
+These variables are stored in vault_ prefix named files.
+
 ```
 my_username: !vault |
           $ANSIBLE_VAULT;1.1;AES256
@@ -80,7 +102,11 @@ my_key_passphrase: !vault |
           6366
 ```
 
-## Example Playbook
+## How to run the playbook
+
+This test.yml can be tested in the tests directory.
+
+### Example Playbook
 
 ```yaml
 ---
@@ -95,7 +121,8 @@ my_key_passphrase: !vault |
       tags: aap_vault_change
 ```
 
-## How to run the playbook
+### Run the playbook locally
+
 An option such as ``--vault-id new_vault_password@prompt`` can be passed while running the playbook. It will prompt for a new vault password, and a new password can be entered. This prevents variables from being decrypted during the rerun if the playbook was interrupted during the previous run. If it is interrupted, some variables may be rekeyed with the new variables and some may remain with the old encryption key.
 
 ````bash
@@ -106,6 +133,9 @@ ansible-playbook -i <inventory_repo_path>  test.yml \
 
 ### How to check the variables with new key
 
+These variables are stored in vault_ prefix named files.After the rekey variables are completed you can test to view the encrypted variables with the new vault password. You just need to point the file and encrypted variable as shown in the below command.
+
+DESCRIPTION
 ````bash
 ansible localhost -m ansible.builtin.debug -a var="encrypted_var1" -e "@<inventory_repo_path>/vault_test_data.yml" --ask-vault-pass
 Vault password:
@@ -113,8 +143,6 @@ localhost | SUCCESS =>
     "encrypted_var1": "test1"
 ````
 
-
-## Viewing encrypted variables with new vault password
 
 It can be tested with the debug module as described in this [example](https://docs.ansible.com/ansible/latest/user_guide/vault.html#viewing-encrypted-variables).
 
