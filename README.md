@@ -146,5 +146,10 @@ localhost | SUCCESS =>
 
 It can be tested with the debug module as described in this [example](https://docs.ansible.com/ansible/latest/user_guide/vault.html#viewing-encrypted-variables).
 
+## Contributing to this collection
+
+We welcome community contributions to this collection.
+More information about contributing can be found in our [Contribution Guidelines.](https://github.com/AliAkkaya7/ansible_rekey_variables/blob/main/CONTRIBUTING.md)
+
 ## License
 GNU General Public License (https://www.gnu.org/licenses/gpl-3.0.en.html#license-text)
