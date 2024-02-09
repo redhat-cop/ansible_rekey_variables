@@ -1,0 +1,55 @@
+---
+namespace: aliakkaya7
+
+# The name of the collection. Has the same character restrictions as 'namespace'
+name: ansible_rekey_variables
+
+# The version of the collection. Must be compatible with semantic versioning
+version: 1.0.0
+
+# The path to the Markdown (.md) readme file. This path is relative to the root of the collection
+readme: README.md
+
+# A list of the collection's content authors. Can be just the name or in the format 'Full Name <email> (url)
+# @nicks:irc/im.site#channel'
+authors:
+  - Ali Akkaya <aakkaya@redhat.com>
+  - Bilhan Karaoren <bkaraoren@redhat.com>
+
+### OPTIONAL but strongly recommended
+# A short summary description of the collection
+description: A collection to manage vaulted variables. It helps you to rekey all encrypted variables in the inventory repository.
+
+license:
+  - AGPL-3.0-or-later
+
+# A list of tags you want to associate with the collection for indexing/searching. A tag name has the same character
+# requirements as 'namespace' and 'name'
+tags:
+  - "infrastructure"
+  - "rekey"
+  - "vault"
+  - "encrypt"
+  - "ansible"
+  - "variable"
+  - "credential"
+  - "aap"
+
+# Collections that this collection requires to be installed for it to be usable. The key of the dict is the
+# collection label 'namespace.name'. The value is a version range
+# L(specifiers,https://python-semanticversion.readthedocs.io/en/latest/#requirement-specification). Multiple version
+# range specifiers can be set and are separated by ','
+dependencies: {}
+
+# The URL of the originating SCM repository
+repository: https://github.com/AliAkkaya7/ansible-rekey
+
+# The URL to any online docs
+documentation: https://github.com/AliAkkaya7/ansible_rekey_variables/blob/main/README.md
+
+# The URL to the homepage of the collection/project
+homepage: https://github.com/AliAkkaya7/ansible_rekey_variables/tree/main
+# The URL to the collection issue tracker
+issues: https://github.com/AliAkkaya7/ansible-rekey
+
+build_ignore: []
