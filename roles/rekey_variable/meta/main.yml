@@ -27,6 +27,7 @@ galaxy_info:
         - "all"
 
   galaxy_tags:
+    - "infrastructure"
     - "rekey"
     - "vault"
     - "encrypt"
