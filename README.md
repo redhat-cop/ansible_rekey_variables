@@ -15,6 +15,7 @@ While `ansible-vault` has a rekey option to change the vault password, `ansible-
 More details can be found in this [link](https://docs.ansible.com/ansible/latest/user_guide/vault.html#creating-encrypted-variables) on encrypted variables.
 
 ### Example for encrypted variable
+
 ----
 Simply run the command below for the variable you want to encrypt, then enter the new vault password. You can use this output in your inventory to store variables as encrypted.
 
@@ -39,6 +40,7 @@ Encryption successful
 * Ansible version 2.9+ should be available locally. Ansible-core package installation is enough.
 * Inventory repositories that hold the encrypted variables should be cloned to the local directory before performing the vault password change.
 * Git also should be available on your local command line.
+
 
 ## Requirements
 
