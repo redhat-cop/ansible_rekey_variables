@@ -40,6 +40,14 @@ Encryption successful
 * Inventory repositories that hold the encrypted variables should be cloned to the local directory before performing the vault password change.
 * Git also should be available on your local command line.
 
+## Requirements
+
+The following package is required to use this collection.
+
+| Name             | Minimum Version |
+|------------------|:---------------:|
+| ansible-core     | 2.9+            |
+
 
 ## Installation
 
@@ -145,6 +153,14 @@ localhost | SUCCESS =>
 
 
 It can be tested with the debug module as described in this [example](https://docs.ansible.com/ansible/latest/user_guide/vault.html#viewing-encrypted-variables).
+
+## Releasing, Versioning and Deprecation
+
+This collection follows [Semantic Versioning](https://semver.org/). More details on versioning can be found [in the Ansible docs](https://docs.ansible.com/ansible/latest/dev_guide/developing_collections.html#collection-versions).
+
+We plan to regularly release new minor or bugfix versions once new features or bugfixes have been implemented.
+
+Releasing the current major version happens from the `main` branch.
 
 ## Contributing to this collection
 

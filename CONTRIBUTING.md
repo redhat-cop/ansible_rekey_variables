@@ -1,6 +1,6 @@
 # Contributor's Guidelines
 
-Refer to the [Contributing guidelines](https://github.com/ansible/community-docs/blob/main/contributing.rst) for basic guideline.
+Refer to the [Contributing guidelines](https://docs.ansible.com/ansible/devel/community/index.html) for basic guideline.
 
 # How to Contribute
 
