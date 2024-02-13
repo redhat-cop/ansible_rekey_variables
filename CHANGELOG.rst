@@ -4,6 +4,13 @@ infra.ansible_rekey_variables Release Notes
 
 .. contents:: Topics
 
+v1.0.1
+======
+
+Minor Changes
+-------------
+
+- Fix: Build Collection pipeline
 
 v1.0.0
 ======
