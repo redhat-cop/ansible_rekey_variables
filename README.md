@@ -65,9 +65,9 @@ ansible-galaxy collection install aliakkaya7.ansible_rekey_variables
 
 Role variables are defined in [defaults/main.yml](defaults/main.yml).
 
-  * `rekey_variable_rekey_variable_vault_file_patterns`: It will search in the inventory file for this regex. You can change it if you have different file naming convention.
+  * `rekey_variable_vault_file_patterns`: It will search in the inventory file for this regex. You can change it if you have different file naming convention.
 
-Basically, ``new_vault_password`` and ``inventory_repo_name`` should be defined to be able to change the vault password.
+Basically, ``rekey_variable_new_vault_password`` and ``rekey_variable_inventory_repo_name`` should be defined to be able to change the vault password.
 
 ### Role Tags
 
@@ -122,12 +122,14 @@ This test.yml can be tested in the tests directory.
 ---
 - name: Change vault password for all encrypted variables in Roles
   hosts: localhost
+  connection: local
   gather_facts: false
-  roles:
-    - role: ../../rekey_variable
+  tasks:
+    - name: Replace encryption key for encrypted variables
+      ansible.builtin.include_role:
+        name: aliakkaya7.ansible_rekey_variables.rekey_variable
       when:
-        - vault_change is defined
-        - vault_change | bool
+        - rekey_variable_vault_change | default('true') | bool
       tags: aap_vault_change
 ```
 
@@ -136,9 +138,8 @@ This test.yml can be tested in the tests directory.
 An option such as ``--vault-id new_vault_password@prompt`` can be passed while running the playbook. It will prompt for a new vault password, and a new password can be entered. This prevents variables from being decrypted during the rerun if the playbook was interrupted during the previous run. If it is interrupted, some variables may be rekeyed with the new variables and some may remain with the old encryption key.
 
 ````bash
-ansible-playbook -i <inventory_repo_path>  test.yml \
---tags "aap_vault_change" --ask-vault-pass \
-    --vault-id new_vault_password@prompt
+ansible-playbook test.yml -i example-inventory-repo --ask-vault-pass  -e rekey_variable_new_vault_password=test12 \
+-e rekey_variable_inventory_repo_name=example-inventory-repo --vault-id new_vault_password@prompt
 ````
 
 ### How to check the variables with new key
