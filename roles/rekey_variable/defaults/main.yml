@@ -14,13 +14,13 @@ rekey_variable_log_var: true
 # rekey_variable_new_vault_password:
 
 ## This pattern is used to find which files have vaulted variables. No need to change because all files with vaulted variables must start with vault_ prefix.
-rekey_variable_rekey_variable_vault_file_patterns: "vault_*.yml"
+rekey_variable_vault_file_patterns: "vault_*.yml"
 
 # This variable is used to search for files only.
-rekey_variable_rekey_variable_vault_file_type: file
+rekey_variable_vault_file_type: file
 
 # This variable should be defined to get a vaulted variable directory name.
-rekey_variable_rekey_variable_inventory_repo_name: "example-inventory-repo"
+rekey_variable_inventory_repo_name: "example-inventory-repo"
 
 ## It requires a variable to be set as a variable. You can set it anywhere as an encrypted variable to make it more secure.
 ## Or you can set it as an environment variable on the command line.
