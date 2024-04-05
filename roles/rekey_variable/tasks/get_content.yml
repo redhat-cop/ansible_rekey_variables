@@ -2,7 +2,7 @@
 - name: Set Vault File Directory, temporary prefix and Vault File Path
   ansible.builtin.set_fact:
     __temporary_vault_directory: "{{ item.path | dirname }}"
-    __temporary_vault_file: "temporary_{{ __rand_string }}{{ item.path | basename }}"
+    __temporary_vault_file: temporary_{{ __rand_string }}{{ item.path | basename }}
     __file_path: "{{ item.path }}"
   tags:
     - aap_vault_change
