@@ -1,3 +1,4 @@
+---
 - name: Change vault password for all encrypted variables in Roles
   hosts: localhost
   connection: local
