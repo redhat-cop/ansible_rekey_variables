@@ -29,4 +29,4 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run ansible-lint
-        uses: ansible/ansible-lint@v24
+        uses: ansible/ansible-lint@main
