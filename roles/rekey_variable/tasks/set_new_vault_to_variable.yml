@@ -35,7 +35,7 @@
 - name: Check to see if the vault variable exists in the temporary vault file.
   ansible.builtin.lineinfile:
     path: "{{ __temporary_vault_directory }}/{{ __temporary_vault_file }}"
-    regexp: ^{{ rekey_variables.key }}$
+    regexp: "^{{ rekey_variables.key }}$"
     line: "{{ rekey_variables.key }}: {{ __new_output }}"
     state: present
     backrefs: true
