@@ -28,7 +28,7 @@ The following package is required to use this collection.
 
 | Name             | Minimum Version |
 |------------------|:---------------:|
-| ansible-core     | 2.9+            |
+| ansible-core     | 2.14+            |
 
 
 

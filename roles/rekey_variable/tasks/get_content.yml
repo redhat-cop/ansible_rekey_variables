@@ -22,7 +22,7 @@
   loop_control:
     loop_var: rekey_variables
     label: "{{ rekey_variables }}"
-  no_log: "{{ rekey_secure_logging }}"
+  no_log: "{{ rekey_variable_secure_logging }}"
   tags:
     - "aap_vault_change"
     - "aap_post_tasks"
