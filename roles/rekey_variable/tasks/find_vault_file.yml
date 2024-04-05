@@ -7,5 +7,5 @@
     recurse: true
   register: __find_files
   tags:
-    - "aap_vault_change"
-    - "aap_post_tasks"
+    - aap_vault_change
+    - aap_post_tasks

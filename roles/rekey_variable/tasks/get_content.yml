@@ -2,19 +2,19 @@
 - name: Set Vault File Directory, temporary prefix and Vault File Path
   ansible.builtin.set_fact:
     __temporary_vault_directory: "{{ item.path | dirname }}"
-    __temporary_vault_file: "temporary_{{ __rand_string }}{{ item.path | basename }}"
+    __temporary_vault_file: temporary_{{ __rand_string }}{{ item.path | basename }}
     __file_path: "{{ item.path }}"
   tags:
-    - "aap_vault_change"
-    - "aap_post_tasks"
+    - aap_vault_change
+    - aap_post_tasks
 
 - name: Review Credential Directory
   ansible.builtin.include_vars:
     file: "{{ item.path }}"
     name: aap_data
   tags:
-    - "aap_vault_change"
-    - "aap_post_tasks"
+    - aap_vault_change
+    - aap_post_tasks
 
 - name: Rekey with new vault password
   ansible.builtin.include_tasks: set_new_vault_to_variable.yml
@@ -24,16 +24,16 @@
     label: "{{ rekey_variables }}"
   no_log: "{{ rekey_variable_secure_logging }}"
   tags:
-    - "aap_vault_change"
-    - "aap_post_tasks"
+    - aap_vault_change
+    - aap_post_tasks
 
 - name: Check if the temporary file exists in case of single variable in vault file
   ansible.builtin.stat:
     path: "{{ __temporary_vault_directory }}/{{ __temporary_vault_file }}"
   register: __temporary_file_output
   tags:
-    - "aap_vault_change"
-    - "aap_post_tasks"
+    - aap_vault_change
+    - aap_post_tasks
 
 - name: Change temporary vault filename to permanent
   ansible.builtin.command: mv "{{ __temporary_vault_directory }}/{{ __temporary_vault_file }}" "{{ __file_path }}"
@@ -41,5 +41,5 @@
   register: __mv_output
   changed_when: __mv_output.rc != 0
   tags:
-    - "aap_vault_change"
-    - "aap_post_tasks"
+    - aap_vault_change
+    - aap_post_tasks
