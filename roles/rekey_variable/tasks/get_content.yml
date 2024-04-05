@@ -1,20 +1,8 @@
 ---
-- name: Get Vault File Directory
+- name: Set Vault File Directory, temporary prefix and Vault File Path
   ansible.builtin.set_fact:
     __temporary_vault_directory: "{{ item.path | dirname }}"
-  tags:
-    - "aap_vault_change"
-    - "aap_post_tasks"
-
-- name: Set temporary prefix to vault filename
-  ansible.builtin.set_fact:
     __temporary_vault_file: "temporary_{{ __rand_string }}{{ item.path | basename }}"
-  tags:
-    - "aap_vault_change"
-    - "aap_post_tasks"
-
-- name: Set Vault File Path
-  ansible.builtin.set_fact:
     __file_path: "{{ item.path }}"
   tags:
     - "aap_vault_change"
@@ -34,7 +22,7 @@
   loop_control:
     loop_var: rekey_variables
     label: "{{ rekey_variables }}"
-  no_log: "{{ rekey_variable_log_var }}"
+  no_log: "{{ rekey_variable_secure_logging }}"
   tags:
     - "aap_vault_change"
     - "aap_post_tasks"

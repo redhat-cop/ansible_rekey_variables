@@ -37,7 +37,7 @@ Encryption successful
 
 ## Prerequisites
 
-* Ansible version 2.9+ should be available locally. Ansible-core package installation is enough.
+* Ansible version 2.14+ should be available locally. Ansible-core package installation is enough.
 * Inventory repositories that hold the encrypted variables should be cloned to the local directory before performing the vault password change.
 * Git also should be available on your local command line.
 
@@ -48,7 +48,7 @@ The following package is required to use this collection.
 
 | Name             | Minimum Version |
 |------------------|:---------------:|
-| ansible-core     | 2.9+            |
+| ansible-core     | 2.14+            |
 
 
 ## Installation

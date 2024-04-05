@@ -8,7 +8,7 @@ rekey_variable_new_vault_file_name: newvaultpassfile
 rekey_variable_vault_change: true
 
 # It should be set to true because the outputs can display sensible data.
-rekey_variable_log_var: true
+rekey_variable_secure_logging: true
 
 ## rekey_variable_new_vault_password should be defined as a variable to set this new password for all encryption variables.
 # rekey_variable_new_vault_password:

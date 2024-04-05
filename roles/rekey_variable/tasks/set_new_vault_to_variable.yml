@@ -7,7 +7,7 @@
   tags:
     - "aap_vault_change"
     - "aap_post_tasks"
-  no_log: "{{ rekey_variable_log_var }}"
+  no_log: "{{ rekey_variable_secure_logging }}"
   changed_when: __new_output.rc != 0
   when:
     - rekey_variable_new_vault_password is defined
