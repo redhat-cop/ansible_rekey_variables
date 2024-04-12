@@ -1,0 +1,20 @@
+## When the branch name starts with feature/, the label enhancement is added to the pull request by the user who owns the GitHub token specified with the github-token input.
+## When the branch name starts with fix/, the label bug is added to the pull request by the user who owns the GitHub token specified with the github-token input.
+name: "Triage"
+
+on: # yamllint disable-line rule:truthy
+  pull_request_target:
+    types:
+      - "opened"
+
+jobs:
+  label:
+    name: "Label"
+
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: "Add labels based on branch name"
+        uses: "ergebnis/.github/actions/github/pull-request/add-label-based-on-branch-name@1.8.0"
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
