@@ -137,6 +137,8 @@ This test.yml can be tested in the tests directory.
 
 An option such as ``--vault-id new_vault_password@prompt`` can be passed while running the playbook. It will prompt for a new vault password, and a new password can be entered. This prevents variables from being decrypted during the rerun if the playbook was interrupted during the previous run. If it is interrupted, some variables may be rekeyed with the new variables and some may remain with the old encryption key.
 
+**Note** : The encryption password for the encrypted test variables is `test`
+
 ````bash
 ansible-playbook test.yml -i example-inventory-repo --ask-vault-pass  -e rekey_variable_new_vault_password=test12 \
 -e rekey_variable_inventory_repo_name=example-inventory-repo --vault-id new_vault_password@prompt
@@ -148,12 +150,12 @@ These variables are stored in vault_ prefix named files.After the rekey variable
 
 DESCRIPTION
 ````bash
-ansible localhost -m ansible.builtin.debug -a var="encrypted_var1" -e "@<inventory_repo_path>/vault_test_data.yml" --ask-vault-pass
+ansible localhost -m ansible.builtin.debug -a var="rekey_variable_encrypted_var1" \
+-e "@example-inventory-repo/group_vars/aap/vault_test_data.yml" --ask-vault-pass
 Vault password:
 localhost | SUCCESS =>
     "encrypted_var1": "test1"
 ````
-
 
 It can be tested with the debug module as described in this [example](https://docs.ansible.com/ansible/latest/user_guide/vault.html#viewing-encrypted-variables).
 
